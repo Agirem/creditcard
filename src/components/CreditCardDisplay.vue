@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center bg-white border border-gray-200 rounded-3xl px-4 py-3 max-w-[340px] shadow-sm">
+  <div class="flex items-center bg-white border border-gray-200 rounded-2xl px-3 py-2 w-[300px] shadow-sm">
     <div class="flex-1 text-base font-medium text-gray-800 tracking-wider font-sans">
       {{ displayNumber }}
     </div>
@@ -12,7 +12,17 @@
       }"
       @click="handleButtonClick"
     >
-      <div v-if="isVisible && !isCopied" class="absolute inset-0 border-2 border-green-500 rounded-xl" :class="{'animate-progress-decrease': isVisible}"></div>
+      <div v-if="isVisible && !isCopied" class="absolute inset-0">
+        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 40 40">
+          <path 
+            d="M20 2 L28 2 A10 10 0 0 1 38 12 V28 A10 10 0 0 1 28 38 H12 A10 10 0 0 1 2 28 V12 A10 10 0 0 1 12 2 L20 2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="animate-border-countdown"
+          />
+        </svg>
+      </div>
       
       <!-- Icône œil -->
       <svg v-if="!isVisible && !isCopied" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -126,15 +136,19 @@ export default {
 </script>
 
 <style>
-@keyframes progress-decrease {
-  0% { clip-path: inset(0 0 0 0 round 0.75rem); }
-  25% { clip-path: inset(0 0 25% 0 round 0.75rem); }
-  50% { clip-path: inset(0 0 50% 0 round 0.75rem); }
-  75% { clip-path: inset(0 0 75% 0 round 0.75rem); }
-  100% { clip-path: inset(0 0 100% 0 round 0.75rem); }
+@keyframes border-countdown {
+  0% {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+  }
 }
 
-.animate-progress-decrease {
-  animation: progress-decrease 4s linear forwards;
+.animate-border-countdown {
+  animation: border-countdown 4s linear forwards;
+  transform-origin: center;
 }
 </style>
